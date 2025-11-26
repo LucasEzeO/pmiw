@@ -7,18 +7,18 @@ class Leon {
     this.y = 380;
     //tamaño
     this.ancho = 100;
-      this.alto = 50;
-      //velocidad
-      this.velocidad = 2;
+    this.alto = 50;
+    //velocidad
+    this.velocidad = 2;
     this.gravedad = 0.6;
     this.velY = 0;
     this.salto = -16;
     this.enTierra = true
-    this.jugadorFrena = 0
-    this.velExtra = 1.5;
+      this.jugadorFrena = 0
+      this.velExtra = 1.5;
   }
   dibujar() {
-   image (imgLeon, this.x, this.y, this.ancho, this.alto);
+    image (imgLeon, this.x, this.y, this.ancho, this.alto);
   }
   seguirJugador() {
     //leon sigue al jugador
@@ -26,21 +26,21 @@ class Leon {
     let cenaLeon = this.jugador.x - distancia;
 
     if (keyIsDown(RIGHT_ARROW)) {
-  this.jugadorFrena = 0; // resetear contador
-  if (this.x + this.ancho < cenaLeon) {
-    this.x += this.velocidad;
-  }
-} else {
-  // jugador está quieto
-  this.jugadorFrena++;
-   if (this.jugadorFrena > 120) {
-    if (this.x + this.ancho < this.jugador.x) {
-      this.x += this.velocidad + this.velExtra;
+      this.jugadorFrena = 0; // resetear contador
+      if (this.x + this.ancho < cenaLeon) {
+        this.x += this.velocidad;
+      }
+    } else {
+      // jugador está quieto
+      this.jugadorFrena++;
+      if (this.jugadorFrena > 120) {
+        if (this.x + this.ancho < this.jugador.x) {
+          this.x += this.velocidad + this.velExtra;
+        }
+      }
     }
-  }
-}
     //leon salta obstaculos
-    for (let i = 0; i < this.obstaculos.length;i++) {
+    for (let i = 0; i < this.obstaculos.length; i++) {
       let obs = this.obstaculos[i];
 
       //si es pajaro no salta
@@ -59,9 +59,9 @@ class Leon {
         }
       }
 
-      let frente = this.x + this.ancho;                
-      let distanciaSalto = 100;                       
-      let distanciaObs = obs.x - frente;              
+      let frente = this.x + this.ancho;
+      let distanciaSalto = 100;
+      let distanciaObs = obs.x - frente;
 
       if (distanciaObs > 0 && distanciaObs <= distanciaSalto && this.enTierra) {
         this.velY = this.salto;
