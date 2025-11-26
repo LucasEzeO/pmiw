@@ -11,28 +11,11 @@ class Jugador {
     this.enTierra = true;
     this.piso = 380;
   }
-
-
-
+  
   dibujarJ() {
-     image (imgHombre, this.x, this.y, this.tam, this.alto);
+    image (imgHombre, this.x, this.y, this.tam, this.alto);
   }
-
-  mover() {
-    //salto
-    if (keyIsDown(UP_ARROW) && this.enTierra) {
-      this.velY = -this.salto;
-      this.enTierra = false;
-    }
-    if (this.enTierra) {
-      if (keyIsDown(DOWN_ARROW)) {
-        this.alto = this.altoOriginal / 2;
-      } else {
-        this.alto = this.altoOriginal;
-      }
-    }
-
-
+  fisica() {
     //gravedad
     this.velY += this.gravedad;
     this.y += this.velY;
@@ -43,4 +26,19 @@ class Jugador {
       this.enTierra = true;
     }
   }
+  saltar() {
+  if (this.enTierra) {
+    this.velY = -this.salto;
+    this.enTierra = false;
+  }
+}
+agacharse() {
+    if (this.enTierra) {
+      if (keyIsDown(DOWN_ARROW)) {
+        this.alto = this.altoOriginal / 2;
+      } else {
+        this.alto = this.altoOriginal;
+      }
+    }
+}
 }
