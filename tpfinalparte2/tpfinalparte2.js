@@ -1,4 +1,3 @@
-//https://youtu.be/aZJGTGkhBK8
 let juego;
 let imgMenu;
 let imgInstrucciones;
@@ -24,7 +23,7 @@ function preload() {
   ganaste = loadSound ("sound/ganaste.mp3");
   rugido = loadSound ("sound/rugido.mp3");
   imgMenu = loadImage("img/Imagen0.png");
-  imgInstrucciones = loadImage("img/fondo.png");
+   imgInstrucciones = loadImage("img/fondo.png");
   imgPradera = loadImage("img/fondo.png");
   imgPerder = loadImage("img/perder.png");
   imgGanar = loadImage("img/ganar.png");
@@ -50,4 +49,10 @@ function draw() {
   background(0);
   juego.mostrar();
   juego.musica();
+  juego.controles();
+}
+function keyPressed() {
+  if (keyCode === UP_ARROW && juego.estado === "jugando") {
+    juego.jugador.saltar();
+  }
 }
