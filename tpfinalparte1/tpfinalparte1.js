@@ -1,4 +1,3 @@
-//https://youtu.be/LDYaYD_anng
 let imagenes = [];
 let click = 0;
 let texto =[];
@@ -36,10 +35,10 @@ function setup() {
   posYBoton2Creditos = posYBotonInicial + tamBoton + 20;
  posXbotonMover = width - width / 2 + 90;
 posYbotonMover = height / 6
-  posXBoton =width / 6;
-  posYBoton =height - height / 3 + 70;
-  posXBoton2 = width - width / 3;
-  posYBoton2 =height - height / 3 + 70;
+  posXBoton = 61;
+  posYBoton = 390;
+  posXBoton2 = 383;
+  posYBoton2 = 390;
   tamBoton = 50;
   TamBotonMover = 50;
   {
@@ -67,40 +66,135 @@ posYbotonMover = height / 6
 }
 function draw() {
   background(0);
-  mostrarImagen()
+  mostrarImagen(640, 480);
   if (click == 0) {
     fill(0, 0, 0, 90);
-    mostrarBotonMenu()
-    fill (255);
-    textSize (20);
-    textAlign (CENTER, CENTER);
-    text("Inicio", posXBotonInicial + (tamBoton * 1.5), posYBotonInicial + tamBoton / 2);
-    text("Créditos", posXBoton2Creditos + (tamBoton * 1.5), posYBoton2Creditos + tamBoton / 2);
-  } else if (click == 1) {
-    fill(0, 0, 0, 90);
-    rect(-12, 310, 660, 200, 20); //Acá moví el rect un poco mas abajo
-    fill(255);
-    textSize(22);
-    textAlign(LEFT, TOP);
-    text(texto[click], 40, 330, 560, 200); //esto mueve el texto un poco mas abajo
-  }
+mostrarBotonMenu(10, 255);
+} else if (click == 1) { 
+fill(0, 0, 0, 90); 
+rect(-12, 310, 660, 200, 20);  
+fill(255); 
+textSize(22); 
+textAlign(LEFT, TOP); 
+text(texto[click], 40, 330, 560, 200); 
+} else if (click != 19 && click != 20 && click != 21 && click != 22) { 
+fill(0, 0, 0, 90); 
+rect(-12, 280, 660, 200, 20); 
+fill(255); 
+textSize(22); 
+textAlign(LEFT, TOP); 
+text(texto[click], 40, 300, 560, 200); }  
+botonDecisionesDibujar (90, 120, 255);
+musica(); 
+if (![0,3, 5, 9, 11, 14].includes(click)) {
+botonAvanzar(120);
+}
+}
+function mousePressed() {
 
-  //Este else if hace que las otra imagenes de dibujen normalmente
-  else if (click != 19 && click != 20 && click != 21 && click != 22) {
-    fill(0, 0, 0, 90);
-    rect(-12, 280, 660, 200, 20);
-    fill(255);
-    textSize(22);
-    textAlign(LEFT, TOP);
-    text(texto[click], 40, 300, 560, 200);
+  if (click === 0) {
+    // Menu
+    if (overMouse(posXBotonInicial, posYBotonInicial, tamBoton * 3, tamBoton)) {
+      click = 1;  // Ir a la imagen uno
+      boton.play();
+    }
+
+     if (overMouse(posXBoton2Creditos, posYBoton2Creditos, tamBoton * 3, tamBoton)) {
+      click = 22; // Ir a créditos
+      boton.play();
+    }
+  } else if (click === 3) {
+    //Decision de la imagen 3
+     if (overMouse(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10)) {
+      click = 9; // Ir a investigar
+      boton.play();
+    }
+
+     if (overMouse(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10)) {
+      click = 4; // Ignorar el problema
+      boton.play();
+    }
+  } else if (click === 9) {
+    //Decision de la imagen 9
+    if (overMouse(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10)) {
+      click = 6; // Ignorar el problema
+      boton.play();
+    }
+
+    if (overMouse(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10)) {
+      click = 10; // Llamar a McClean
+      boton.play();
+    }
+  } else if (click === 11) {
+    // --- DECISIÓN EN IMAGEN 11 ---
+        if (overMouse(posXBoton - 50, posYBoton + 25, tamBoton * 4, tamBoton, 10)) {
+      click = 12; // Ignorar el consejo
+      boton.play();
+    }
+
+       if (overMouse(posXBoton2 - 50, posYBoton2 + 25, tamBoton * 4, tamBoton, 10)) {
+      click = 13; // Hacerle caso a McClean
+      boton.play();
+    }
+  } else if (click === 14) {
+    // Decisión de la imagen 14
+     if (overMouse(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10)) {
+      click = 15; // Hacerle caso a Lydia
+      boton.play();
+    }
+ if (overMouse(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10)) {
+      click = 16; // No hacerle caso a Lydia
+      boton.play();
+    }
+  } else if (click === 5) {
+    // Decision imagen 5
+      if (overMouse(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10)) {
+      click = 10; // No llamar a McClean
+      boton.play();
+    }
+
+     if (overMouse(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10)) {
+      click = 6; // Llamar a McClean
+      boton.play();
+    }
+  } else if (click == 15) {
+    click = 17;
+  } else if (click == 19 || click === 21 || click === 20) { //Este else hace que todos los finales vuelvan a cero
+    click = 0;
+  } else if (click == 8) {
+    click = 21;
+  } else if (click == 16) {
+    click = 20;
+  } else {
+  // --- SOLO avanzar si se toca el botón Continuar ---
+  if (
+    mouseX > posXbotonMover &&
+    mouseX < posXbotonMover + TamBotonMover * 4 &&
+    mouseY > posYbotonMover &&
+    mouseY < posYbotonMover + TamBotonMover
+  ) {
+    if (click < imagenes.length - 1) {
+      click++;
+    } else {
+      click = 0;
+    }
+    boton.play();
   }
-  if (click == 0) {
+  }
+}
+function mostrarImagen(x, y) {
+  image(imagenes[click], 0, 0, x, y);
+  fill(255);
+text(mouseX+":"+mouseY, mouseX, mouseY);
+}
+function botonDecisionesDibujar (trans, trans2, fnegro){
+ if (click == 0) {
     // Botones de inicio y créditos
-    fill(0, 0, 0, 90);
+    fill(0, 0, 0, trans);
     rect(posXBotonInicial, posYBotonInicial, tamBoton * 3, tamBoton, 10);
     rect(posXBoton2Creditos, posYBoton2Creditos, tamBoton * 3, tamBoton, 10);
 
-    fill(255);
+    fill(fnegro);
     textSize(20);
     textAlign(CENTER, CENTER);
     text("Inicio", posXBotonInicial + (tamBoton * 1.5), posYBotonInicial + tamBoton / 2);
@@ -109,173 +203,70 @@ function draw() {
 
   if (click == 3) {
     // Botones de decisión
-    fill(0, 0, 0, 120);
+    fill(0, 0, 0, trans2);
     rect(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10);
     rect(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10);
 
-    fill (255);
+    fill (fnegro);
     textSize (19);
     textAlign (CENTER, CENTER);
     text ("Ir a investigar", posXBoton + (tamBoton), posYBoton + (tamBoton / 2));
     text ("Ignorar el problema", posXBoton2 + (tamBoton), posYBoton2 + (tamBoton / 2));
   }
   if (click == 9) {
-    fill(0, 0, 0, 120);
+    fill(0, 0, 0, trans2);
     rect(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10);
     rect(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10);
 
-    fill (255);
+    fill (fnegro);
     textSize (19);
     textAlign (CENTER, CENTER);
     text ("Ignorar el problema", posXBoton + (tamBoton), posYBoton + (tamBoton / 2));
     text ("Llamar a McClean", posXBoton2 + (tamBoton), posYBoton2 + (tamBoton / 2));
   }
   if (click == 11) {
-    fill(0, 0, 0, 120);
+    fill(0, 0, 0, trans2);
     rect(posXBoton - 50, posYBoton + 25, tamBoton * 4, tamBoton, 10);
     rect(posXBoton2 - 50, posYBoton2 + 25, tamBoton * 4, tamBoton, 10);
 
-    fill (255);
+    fill (fnegro);
     textSize (19);
     textAlign (CENTER, CENTER);
     text ("Ignorar el consejo", posXBoton + (tamBoton), posYBoton + (tamBoton / 2) +25);
     text ("Hacerle caso McClean", posXBoton2 + (tamBoton), posYBoton2 + (tamBoton / 2) +25);
   }
   if (click == 14) {
-    fill(0, 0, 0, 120);
+    fill(0, 0, 0, trans2);
     rect(posXBoton - 50, posYBoton, tamBoton * 4, tamBoton, 10);
     rect(posXBoton2 - 50, posYBoton2, tamBoton * 4, tamBoton, 10);
 
-    fill (255);
+    fill (fnegro);
     textSize (19);
     textAlign (CENTER, CENTER);
     text ("Escuchar a Lydia", posXBoton + (tamBoton), posYBoton + (tamBoton / 2));
     text ("Negarse", posXBoton2 + (tamBoton), posYBoton2 + (tamBoton / 2));
   }
   if (click == 5) {
-    fill(0, 0, 0, 120);
+    fill(0, 0, 0, trans2);
     rect(posXBoton - 50, posYBoton + 25, tamBoton * 4, tamBoton, 10);
     rect(posXBoton2 - 50, posYBoton2 + 25, tamBoton * 4, tamBoton, 10);
 
-    fill (255);
+    fill (fnegro);
     textSize (19);
     textAlign (CENTER, CENTER);
     text ("Llamar a McClean", posXBoton + (tamBoton), posYBoton + (tamBoton / 2) + 25);
     text ("No llamarlo", posXBoton2 + (tamBoton), posYBoton2 + (tamBoton / 2) + 25);
+  } 
 }
-musica(); 
-
-if (![0,3, 5, 9, 11, 14].includes(click)) {
-  botonAvanzar();
-}
-}
-function mousePressed() {
-
-  if (click == 0) {
-    // Menu
-    if ( mouseX > posXBotonInicial && mouseX < posXBotonInicial + tamBoton * 3 && mouseY > posYBotonInicial && mouseY < posYBotonInicial + tamBoton
-      ) {
-      click = 1;  // Ir a la imagen uno
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2Creditos && mouseX < posXBoton2Creditos + tamBoton * 3 && mouseY > posYBoton2Creditos && mouseY < posYBoton2Creditos + tamBoton
-      ) {
-      click = 22; // Ir a créditos
-      boton.play();
-    }
-  } else if (click == 3) {
-    //Decision de la imagen 3
-    if (mouseX > posXBoton - 50 && mouseX < posXBoton - 50 + tamBoton * 4 && mouseY > posYBoton && mouseY < posYBoton + tamBoton
-      ) {
-      click = 9; // Ir a investigar
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2 - 50 && mouseX < posXBoton2 - 50 + tamBoton * 4 && mouseY > posYBoton2 && mouseY < posYBoton2 + tamBoton
-      ) {
-      click = 4; // Ignorar el problema
-      boton.play();
-    }
-  } else if (click == 9) {
-    //Decision de la imagen 9
-    if (mouseX > posXBoton - 50 && mouseX < posXBoton - 50 + tamBoton * 4 && mouseY > posYBoton && mouseY < posYBoton + tamBoton
-      ) {
-      click = 6; // Ignorar el problema
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2 - 50 && mouseX < posXBoton2 - 50 + tamBoton * 4 && mouseY > posYBoton2 && mouseY < posYBoton2 + tamBoton
-      ) {
-      click = 10; // Llamar a McClean
-      boton.play();
-    }
-  } else if (click == 11) {
-    // --- DECISIÓN EN IMAGEN 11 ---
-    if (mouseX > posXBoton - 50 && mouseX < posXBoton - 50 + tamBoton * 4 && mouseY > posYBoton + 25 && mouseY < posYBoton + 25 + tamBoton
-      ) {
-      click = 12; // Ignorar el consejo
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2 - 50 && mouseX < posXBoton2 - 50 + tamBoton * 4 && mouseY > posYBoton2 + 25 && mouseY < posYBoton2 + 25 + tamBoton
-      ) {
-      click = 13; // Hacerle caso a McClean
-      boton.play();
-    }
-  } else if (click == 14) {
-    // Decisión de la imagen 14
-    if (mouseX > posXBoton - 50 && mouseX < posXBoton - 50 + tamBoton * 4 && mouseY > posYBoton && mouseY < posYBoton + tamBoton
-      ) {
-      click = 15; // Hacerle caso a Lydia
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2 - 50 && mouseX < posXBoton2 - 50 + tamBoton * 4 && mouseY > posYBoton2 && mouseY < posYBoton2 + tamBoton
-      ) {
-      click = 16; // No hacerle caso a Lydia
-      boton.play();
-    }
-  } else if (click == 5) {
-    // Decision imagen 5
-    if (mouseX > posXBoton - 50 && mouseX < posXBoton - 50 + tamBoton * 4 && mouseY > posYBoton + 25 && mouseY < posYBoton + 25 + tamBoton
-      ) {
-      click = 10; // No llamar a McClean
-      boton.play();
-    }
-
-    if (mouseX > posXBoton2 - 50 && mouseX < posXBoton2 - 50 + tamBoton * 4 && mouseY > posYBoton2 + 25 && mouseY < posYBoton2 + 25 + tamBoton
-      ) {
-      click = 6; // Llamar a McClean
-      boton.play();
-    }
-  } else if (click == 15) {
-    click = 17;
-  } else if (click == 19) {
-    click = 0;
-  } else if (click == 8) {
-    click = 21;
-  } else if (click == 21) {
-    click = 0;
-  } else if (click == 16) {
-    click = 20;
-  } else if (click == 20) {
-    click = 0;
-  } else {
-    //Esto permite el avance normal de las imagenes
-    if (click < imagenes.length - 1) {
-      click++;
-    } else {
-      click = 0;
-    }
-  }
-}
-function mostrarImagen() {
-  image(imagenes[click], 0, 0, 640, 480);
-}
-function mostrarBotonMenu (){
-  rect(posXBotonInicial, posYBotonInicial, tamBoton * 3, tamBoton, 10);
-    rect(posXBoton2Creditos, posYBoton2Creditos, tamBoton * 3, tamBoton, 10);
+function mostrarBotonMenu (redondez, negro){
+rect(posXBotonInicial, posYBotonInicial, tamBoton * 3, tamBoton, redondez);
+rect(posXBoton2Creditos, posYBoton2Creditos, tamBoton * 3, tamBoton, redondez);
+fill (negro);
+textSize (20);
+textAlign (CENTER, CENTER);
+text("Inicio", posXBotonInicial + (tamBoton * 1.5), posYBotonInicial + tamBoton / 2);
+text("Créditos", posXBoton2Creditos + (tamBoton * 1.5), posYBoton2Creditos + tamBoton / 2);
+  
 }
 function musica () {
     
@@ -292,8 +283,8 @@ function musica () {
     rugidoleon.stop();
   }
 }
-function botonAvanzar (){
-  fill(0, 0, 0, 120);
+function botonAvanzar (trans){
+  fill(0, 0, 0, trans);
   noStroke();
   rect(posXbotonMover, posYbotonMover, TamBotonMover * 4, TamBotonMover, 10); // ancho x4 igual que los otros botones
 
@@ -302,4 +293,7 @@ function botonAvanzar (){
   textSize(19);
   textAlign(CENTER, CENTER);
   text("Continuar", posXbotonMover + (TamBotonMover * 2), posYbotonMover + (TamBotonMover / 2));
+}
+function overMouse (posX, posY, tamX, tamY){
+  return mouseX > posX && mouseX <posX + tamX && mouseY > posY && mouseY <posY + tamY;
 }
