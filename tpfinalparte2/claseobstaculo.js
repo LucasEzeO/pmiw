@@ -11,15 +11,15 @@ class Obstaculos {
   }
 
   dibujarO() {
-  
+
     if (this.tipoObs === "arbusto") {
-      image(imgArbusto, this.x, this.y - 25 ,112,148);
+      image(imgArbusto, this.x, this.y - 25, 112, 148);
     } else if (this.tipoObs === "piedra") {
       image(imgPiedra, this.x, this.y -20, 72, 108);
     } else if (this.tipoObs === "pajaro") {
       image(imgPajaro, this.x, this.y - 60, 90, 73);
     } else if (this.tipoObs === "tronco") {
-      image(imgTronco, this.x, this.y - 25,280, 74);
+      image(imgTronco, this.x, this.y - 25, 280, 74);
     }
   }
   mover() {
@@ -32,10 +32,8 @@ class Obstaculos {
     let jugadorAlto = jugador.alto;
     let margen = 5;
 
-    let colisionX = jugadorX + jugadorAncho > this.x + margen &&
-      jugadorX < this.x + this.ancho - margen;
-    let colisionY = jugadorY + jugadorAlto > this.y + margen &&
-      jugadorY < this.y + this.alto - margen;
+    let colisionX = jugadorX + jugadorAncho > this.x + margen && jugadorX < this.x + this.ancho - margen;
+    let colisionY = jugadorY + jugadorAlto > this.y + margen && jugadorY < this.y + this.alto - margen;
 
     if (this.tipoObs === "tronco") {
       if (colisionX && jugadorY + jugadorAlto > this.y && jugador.velY >= 0) {
