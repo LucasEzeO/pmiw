@@ -1,49 +1,38 @@
-class Obstaculos {
-  constructor(x, y, ancho, alto, velocidad, tipoObs, img = null) {
-    this.x = x;
-    this.y = y;
-    this.alto = alto;
-    this.ancho = ancho;
-    this.velocidad = velocidad
-      this.tipoObs = tipoObs;
-    this.img = img;
-    this.obsPasado = false
+class Puerta {
+  constructor(jugador, velocidad) {
+    this.jugador = jugador;
+    this.ancho = jugador.tam + 20;
+    this.alto = jugador.alto + 20;
+    this.x = width + 50; // empieza fuera de pantalla
+    this.y = 320 - 60;   // sobre el suelo
+    this.velocidad = velocidad;
+    this.visible = false;
+    this.ganada = false;
   }
-
-  dibujarO() {
-
-    if (this.tipoObs === "arbusto") {
-      image(imgArbusto, this.x, this.y - 25, 112, 148);
-    } else if (this.tipoObs === "piedra") {
-      image(imgPiedra, this.x, this.y -20, 72, 108);
-    } else if (this.tipoObs === "pajaro") {
-      image(imgPajaro, this.x, this.y - 60, 90, 73);
-    } else if (this.tipoObs === "tronco") {
-      image(imgTronco, this.x, this.y - 25, 280, 74);
-    }
-  }
-  mover() {
+  mostrar() {
+    if (!this.visible) return; // si puerta no es visible
+    fill(150, 75, 0);
+    image(imgPuerta, this.x, this.y - 10, 138, 138);
+    // mover puerta hacia la izquierda
     this.x -= this.velocidad;
   }
-  hitBox(jugador) {
-    let jugadorX = jugador.x;
-    let jugadorY = jugador.y;
-    let jugadorAncho = jugador.tam;
-    let jugadorAlto = jugador.alto;
-    let margen = 5;
 
-    let colisionX = jugadorX + jugadorAncho > this.x + margen && jugadorX < this.x + this.ancho - margen;
-    let colisionY = jugadorY + jugadorAlto > this.y + margen && jugadorY < this.y + this.alto - margen;
+  activar() {
+    this.visible = true; // hace que la puerta aparezca
+  }
 
-    if (this.tipoObs === "tronco") {
-      if (colisionX && jugadorY + jugadorAlto > this.y && jugador.velY >= 0) {
-        jugador.y = this.y - jugadorAlto;
-        jugador.velY = 0;
-        jugador.enTierra = true;
-      }
-      return false;
-    } else {
-      return colisionX && colisionY;
+  Colision() {
+    if (!this.visible) return false;
+    // colisión con jugador
+    if (
+      this.jugador.x + this.jugador.tam > this.x &&
+      this.jugador.x < this.x + this.ancho &&
+      this.jugador.y + this.jugador.alto > this.y &&
+      this.jugador.y < this.y + this.alto
+      ) {
+      this.ganada = true;
+      return true
     }
+    return false
   }
 }
