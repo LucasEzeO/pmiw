@@ -1,4 +1,3 @@
-//https://youtu.be/aZJGTGkhBK8
 let juego;
 let imgMenu;
 let imgInstrucciones;
@@ -57,3 +56,4 @@ function keyPressed() {
     juego.jugador.saltar();
   }
 }
+
