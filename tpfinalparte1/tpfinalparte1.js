@@ -185,7 +185,6 @@ function mousePressed() {
 function mostrarImagen(x, y) {
   image(imagenes[click], 0, 0, x, y);
   fill(255);
-text(mouseX+":"+mouseY, mouseX, mouseY);
 }
 function botonDecisionesDibujar (trans, trans2, fnegro){
  if (click == 0) {
@@ -297,3 +296,4 @@ function botonAvanzar (trans){
 function overMouse (posX, posY, tamX, tamY){
   return mouseX > posX && mouseX <posX + tamX && mouseY > posY && mouseY <posY + tamY;
 }
+
